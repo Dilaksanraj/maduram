@@ -14,8 +14,61 @@ import dayjs from 'dayjs';
 import { Button } from '@mui/material';
 import ServiceCard from './Service';
 import RangOfCarsAndVan from './RangOfCarsAndVan';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { getCodePostal } from 'service/common/country.service';
+import Select from '@mui/material/Select';
+import { useTheme } from '@mui/material/styles';
+import MenuItem from '@mui/material/MenuItem';
+import CodePostal from 'assets/postal/france.json'
+// import xyz from 'assets/images/gallary/blu'
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+function getStyles(name, personName, theme) {
+    return {
+      fontWeight:
+        personName.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
 export default function SimpleContainer() {
+    const theme = useTheme();
+    const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
+    const [personName, setPersonName] = React.useState([]);
+
+    const handleChangePostal = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPersonName(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
+    };
+  
+    const handleChange = (newValue) => {
+        setValue(newValue);
+    };
+
+    React.useEffect(() => {
+
+        CodePostal.map(data => {
+        });
+
+    }, []);
 
     const service = [
         {
@@ -107,66 +160,55 @@ export default function SimpleContainer() {
                         </Grid>
                         <Grid item xs={12} sm={3} md={3}>
                             <FormControl fullWidth sx={{ m: 1 }} variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-password">search</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type='text'
-                                    value=''
-                                    // onChange={handleChange('password')}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                edge="end"
-                                            >
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="search"
-                                />
+                                <Select
+                                    labelId="demo-multiple-name-label"
+                                    id="demo-multiple-name"
+                                    multiple
+                                    value={personName}
+                                    input={<OutlinedInput label="Name" />}
+                                    MenuProps={MenuProps}
+                                >
+                                    {CodePostal.map((postal) => (
+                                        <MenuItem
+                                            key={postal.recordid}
+                                            value={postal.recordid}
+                                        >
+                                            {postal.recordid}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={2} md={2}>
-                            <FormControl fullWidth sx={{ m: 1 }} variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-password">search</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type='text'
-                                    value=''
-                                    // onChange={handleChange('password')}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                edge="end"
-                                            >
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="search"
-                                />
-                            </FormControl>
+
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+                                <FormControl fullWidth sx={{ m: 1 }} variant="outlined">
+                                    <DateTimePicker
+                                        label="DateTime picker"
+                                        value={value}
+                                        onChange={handleChange}
+                                        renderInput={(params) => <TextField {...params} />}
+                                    />
+
+                                </FormControl>
+
+
+
+                            </LocalizationProvider>
+
                         </Grid>
                         <Grid item xs={12} sm={2} md={2}>
-                            <FormControl fullWidth sx={{ m: 1 }} variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-password">search</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type='text'
-                                    value=''
-                                    // onChange={handleChange('password')}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                edge="end"
-                                            >
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="search"
-                                />
-                            </FormControl>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <FormControl fullWidth sx={{ m: 1 }} variant="outlined">
+                                    <DateTimePicker
+                                        label="DateTime picker"
+                                        value={value}
+                                        onChange={handleChange}
+                                        renderInput={(params) => <TextField {...params} />}
+                                    />
+                                </FormControl>
+                            </LocalizationProvider>
                         </Grid>
 
                         <Grid item xs={12} sm={3} md={3} style={{ marginTop: '14px' }}>
@@ -176,14 +218,8 @@ export default function SimpleContainer() {
                     </Grid>
 
 
-                    {/* search data */}
-                    {/* <HomeComponent /> */}
-
-                    {/*our service */}
-
                     <Grid container spacing={2} style={{ marginTop: '16px' }}>
 
-                        {/* heading */}
                         <Grid item xs={12} style={{ textAlign: 'center' }}>
                             <h1>
                                 Our rental services
@@ -197,8 +233,6 @@ export default function SimpleContainer() {
                             </Grid>
 
                         )}
-
-
                     </Grid>
 
                     {/* Range of service */}

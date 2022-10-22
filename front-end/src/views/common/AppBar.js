@@ -15,9 +15,10 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { AppsConst } from 'shared/AppsConst';
 import { logoutService } from 'service/auth/auth.service';
 import { NavLink } from 'react-router-dom';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Divider from '@mui/material/Divider';
 
-const pages = ['Contact', 'Galary'];
+const pages = ['Contact', 'Gallary'];
 const settings = ['Profile', 'Account', 'Logout'];
 
 const AppBarMain = () => {
@@ -25,17 +26,26 @@ const AppBarMain = () => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const isLoged = localStorage.getItem(AppsConst.token) ? true : false;
 
-    const authUser = isLoged?localStorage.getItem(AppsConst.userName): "M";
+    const authUser = isLoged ? localStorage.getItem(AppsConst.userName) : "M";
 
     const navigate = useNavigate();
 
-    async function logoutHndle(){
+    async function logoutHndle() {
         const response = logoutService();
         localStorage.clear();
 
         navigate("/pages/login/login3");
 
     }
+
+    async function openGallary() {
+
+        console.log('working');
+        navigate("/pages/login/login3");
+
+    }
+
+
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -54,86 +64,107 @@ const AppBarMain = () => {
 
     return (
         <>
+            <AppBar position="static">
+                <Container maxWidth="xl">
+                    <Toolbar disableGutters>
+                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                        <Link to='/home' style={{ textDecoration: 'none', color: 'white'}}>
 
-<AppBar position="static">
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'cursive',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        Maduram Rental
-                    </Typography>
-
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            href="/"
                             sx={{
-                                display: { xs: 'block', md: 'none' },
+                                mr: 2,
+                                display: { xs: 'none', md: 'flex' },
+                                fontFamily: 'cursive',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            Maduram Rental
+                        </Typography>
+                        </Link>
+                        
+
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenNavMenu}
+                                color="inherit"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorElNav}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(anchorElNav)}
+                                onClose={handleCloseNavMenu}
+                                sx={{
+                                    display: { xs: 'block', md: 'none' },
+                                }}
+                            >
+                                <MenuItem >
+                                    <Typography onClick={openGallary} textAlign="center">Gallary</Typography>
+
                                 </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        Maduram Rental
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                                <MenuItem >
+                                    <Typography onClick={openGallary} textAlign="center">Gallary</Typography>
+
+                                </MenuItem>
+                            </Menu>
+                        </Box>
+                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                        <Link to='/home' style={{ textDecoration: 'none', color: 'white'}}>
+
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            component="a"
+                            href=""
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'flex', md: 'none' },
+                                flexGrow: 1,
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            Maduram Rental
+                        </Typography>
+                        </Link>
+                        
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+                            <Link to='/contact' style={{ textDecoration: 'none', color: 'white', marginRight:'16px' }}>
+                                <Typography textAlign="center">Contact</Typography>
+                            </Link>
+
+                            <Link to='/gallary' style={{ textDecoration: 'none', color: 'white' }}>
+                                <Typography textAlign="center">Gallary</Typography>
+                            </Link>
+
+
+
+                            {/* {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
@@ -141,62 +172,63 @@ const AppBarMain = () => {
                             >
                                 {page}
                             </Button>
-                        ))}
-                    </Box>
+                        ))} */}
+                        </Box>
 
-                    {isLoged&& <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open profile">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt={authUser} src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
+                        {isLoged && <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Open profile">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar alt={authUser} src="/static/images/avatar/2.jpg" />
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
                                 <MenuItem onClick={logoutHndle}>
                                     <Typography textAlign="center">
                                         Logout
                                     </Typography>
                                 </MenuItem>
-                                <MenuItem onClick={(e)=> navigate('/')}>
+                                <MenuItem onClick={(e) => navigate('/')}>
                                     <Typography textAlign="center">
                                         Profile
                                     </Typography>
                                 </MenuItem>
-                                <MenuItem onClick={(e)=> navigate('/')}>
+                                <MenuItem onClick={(e) => navigate('/')}>
                                     <Typography textAlign="center">
                                         Account
                                     </Typography>
                                 </MenuItem>
 
-                        </Menu>
-                    </Box>}
+                            </Menu>
+                        </Box>}
 
-                    {!isLoged && 
-                    <NavLink style={{textDecoration: 'none',
-                        color: 'white'
-                    }} to='/pages/login/login3' >
-                    Login
-                    </NavLink>
-                    }
-                </Toolbar>
-            </Container>
-        </AppBar>
+                        {!isLoged &&
+                            <NavLink style={{
+                                textDecoration: 'none',
+                                color: 'white'
+                            }} to='/pages/login/login3' >
+                                Login
+                            </NavLink>
+                        }
+                    </Toolbar>
+                </Container>
+            </AppBar>
 
-        
+
         </>
 
     );

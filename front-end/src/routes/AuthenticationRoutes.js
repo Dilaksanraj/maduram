@@ -8,6 +8,8 @@ import MinimalLayout from 'layout/MinimalLayout';
 const AuthLogin3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/Login3')));
 const AuthRegister3 = Loadable(lazy(() => import('views/pages/authentication/authentication3/Register3')));
 const HomeComponent = Loadable(lazy(() => import('views/common/home')));
+const GallaryComponent = Loadable(lazy(()=> import ('views/common/Gallary')));
+const ContactComponent = Loadable(lazy(()=> import ('views/common/Contact')));
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const AuthenticationRoutes = {
@@ -25,6 +27,14 @@ const AuthenticationRoutes = {
         {
             path: '/home',
             element: <HomeComponent />
+        },
+        {
+            path: '/contact',
+            element: <ContactComponent />
+        },
+        {
+            path: '/gallary',
+            element: <GallaryComponent />
         }
     ]
 };
